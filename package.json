@@ -1,0 +1,25 @@
+{
+  "name": "ec2-management-util",
+  "version": "1.0.0",
+  "description": "EX2 management utility.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hloc/ec2-management-util.git"
+  },
+  "keywords": [
+    "EC2"
+  ],
+  "author": "hloc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hloc/ec2-management-util/issues"
+  },
+  "homepage": "https://github.com/hloc/ec2-management-util#readme",
+  "dependencies": {
+    "aws-sdk": "^2.112.0"
+  }
+}
