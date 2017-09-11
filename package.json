@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/hloc/ec2-management-util#readme",
   "dependencies": {
-    "aws-sdk": "^2.112.0"
+    "aws-sdk": "^2.112.0",
+    "bluebird": "^3.5.0"
   }
 }
