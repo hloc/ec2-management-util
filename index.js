@@ -25,14 +25,16 @@
         startInstance();
         break;
       }
-      case
-       'stop': {
+      case 'stop': {
         stopInstance();
         break;
       }
-      default: {
-
+      case 'info': {
+        displayInstances();
+        break;
       }
+      default:
+        displayInstances();
     }
   } else {
     console.log('Missing command');
@@ -65,6 +67,7 @@
             instanceId,
           ],
         };
+
         return promisifyDesc();
       })
       .then(result => {
@@ -116,6 +119,34 @@
       })
       .then(result => {
         console.log('stop result', JSON.stringify(result));
+      })
+      .catch(err => {
+        console.log(err, err.stack); // an error occurred
+      })
+      .then(() => {
+        terminateFlag = true;
+      });
+
+    let t;
+    function nt() {
+      if (!terminateFlag) {
+        t = setTimeout(nt, 1000);
+      }
+    }
+    nt();
+  }
+
+  function displayInstances() {
+    let terminateFlag = false;
+    let dns;
+    let promisifyDesc = Promise.promisify(ec2.describeInstances);
+    promisifyDesc = promisifyDesc.bind(ec2);
+
+    promisifyDesc({})
+      .then(data => {
+        const instance = data.Reservations[0].Instances[0];
+        dns = instance.PublicDnsName;
+        console.log(`ssh -i ~/.ssh/ec2sock.pem ec2-user@${dns} -D 11080`)
       })
       .catch(err => {
         console.log(err, err.stack); // an error occurred
